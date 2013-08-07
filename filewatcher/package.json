@@ -25,7 +25,7 @@
         "eventemitter2": "0.4.x",
         "tedious": "0.1.x",
         "cron": "1.0.x",
-        "amqp": "0.1.x",
+        "amqp": "*",
         "config": "git://github.com/rdbenoit/node-config.git#v0.4.16",
         "winston": "*",
         "googlemaps": "0.1.x",

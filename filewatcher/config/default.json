@@ -3,9 +3,11 @@
     "clusterWorkers": false,
     "amqp": {
 //        "host": "10.10.10.183",
-        "host": "10.10.10.180",
+//        "host": "10.10.10.180",
 //        "host": "192.168.0.139",
-        "port": "5673",
+        "host": "ec2-23-20-137-127.compute-1.amazonaws.com",
+//        "port": "5673",
+        "port": "5672",
         "login": "letsallfancyclap",
         "password": "callmeishmael",
         "vhost": "/",
@@ -45,9 +47,11 @@
                             "CountyData": 500000
                         },
                         "amqp": {
-                            "publishTo": "AddressValidationRequest",
-                            "options": {
-                                "replyTo": "AddressValidationReply"
+                            "publish": {
+                                "to": "AddressValidationRequest",
+                                "options": {
+                                    "replyTo": "AddressValidationReply"
+                                }
                             }
                         }
                     },
@@ -57,9 +61,11 @@
                             "DeedAddressReply": 500000
                         },
                         "amqp": {
-                            "publishTo": "DeedAddressRequest",
-                            "options": {
-                                "replyTo": "DeedAddressReply"
+                            "publish": {
+                                "to": "DeedAddressRequest",
+                                "options": {
+                                    "replyTo": "DeedAddressReply"
+                                }
                             }
                         }
                     }

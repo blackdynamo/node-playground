@@ -49,7 +49,7 @@ function processLine(context) {
     context.lineCount++;
 
     new ProcessLinePipeline(context).execute(function (err, context) {
-//        if (err) winston.error(err);
+        if (err) winston.error(err);
     });
 }
 

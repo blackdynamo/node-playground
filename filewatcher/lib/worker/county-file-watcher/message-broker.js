@@ -1,11 +1,13 @@
-var foo = require('jquery-deferred'),
+var _ = require("underscore"),
+    foo = require('jquery-deferred'),
     config = require('config'),
-    amqp = require('amqp');
+    amqp = require('amqp'),
+    amqpStream = require('amqp-stream');
 
-var defaultQueueOptions = { durable: true, autoDelete: false};
+var defaultQueueOptions = {durable: true, autoDelete: false};
+var defaultPublishOptions = {"contentType": "application/json", "deliveryMode": 2};
 
 function MessageBroker(amqpConfig) {
-    console.log('constructor');
     var me = this;
     me.config = amqpConfig || config.amqp;
 
@@ -28,8 +30,8 @@ MessageBroker.prototype.publish = function (queueName, message, options, cb) {
     var me = this;
 
     me._deferred.done(function () {
-        me._connection.queue(queueName, defaultQueueOptions, function (q) {
-            me._connection.publish(queueName, message, options, cb);
+        me._connection.queue(queueName, defaultQueueOptions, function () {
+            me._connection.publish(queueName, message, _.extend({}, defaultPublishOptions, options), cb);
         });
     });
 };
@@ -38,10 +40,10 @@ var messageBroker;
 
 module.exports = {
     create: function (config) {
-        if (!messageBroker) {
-            messageBroker = new MessageBroker(config);
-        }
+        if (!messageBroker) messageBroker = new MessageBroker(config);
+
         return messageBroker;
     }
 };
+
 
