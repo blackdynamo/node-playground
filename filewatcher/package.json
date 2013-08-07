@@ -1,0 +1,67 @@
+{
+    "author": "",
+    "name": "",
+    "description": "Repository of zaio cloud services for munching through the data",
+    "version": "1.0.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Zaio/CloudServices.git"
+    },
+    "bin": {
+        "zaio.address-validator": "./bin/address-validator"
+    },
+    "main": "./lib/hook",
+    "scripts": {
+        "test": "make test"
+    },
+    "dependencies": {
+        "jquery-deferred" : "*",
+        "chokidar": "*",
+        "request": "2.14.x",
+        "optimist": "0.3.x",
+        "underscore": "1.4.x",
+        "underscore.string": "2.3.x",
+        "eventemitter2": "0.4.x",
+        "tedious": "0.1.x",
+        "cron": "1.0.x",
+        "amqp": "0.1.x",
+        "config": "git://github.com/rdbenoit/node-config.git#v0.4.16",
+        "winston": "*",
+        "googlemaps": "0.1.x",
+        "node-uuid": "*",
+        "fs-extra": "0.3.x",
+        "watch": "0.5.x",
+        "async": "0.2.x",
+        "chain-gang": "1.0.x",
+        "mongoskin": "git://github.com/rdbenoit/node-mongoskin.git",
+        "undescoreDeepExtend": "git://github.com/rdbenoit/undescoreDeepExtend.git",
+        "event-stream": "3.0.x",
+        "memorystream": "0.2.x",
+        "moment": "1.7.x",
+        "ftp": "0.1.x",
+        "lazy": "1.0.x",
+        "generic-pool": "2.0.x",
+        "bufferstream": "0.5.1",
+        "memoizee": "0.2.x",
+        "unzip": "*",
+        "linq": "1.0.x",
+        "retry": "0.6.x",
+        "walkdir": "0.0.x",
+        "byline": "*",
+        "simple-pipeline":"*",
+        "q":"*"
+    },
+    "devDependencies": {
+        "mocha": "1.8.x",
+        "should": "1.2.x",
+        "sinon": "1.6.x",
+        "sandboxed-module": "0.2.x",
+        "istanbul": "0.1.x",
+        "mocha-istanbul": "0.1.x"
+    },
+    "optionalDependencies": {},
+    "engines": {
+        "node": "0.8.x"
+    }
+}

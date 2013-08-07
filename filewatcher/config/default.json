@@ -1,0 +1,70 @@
+{
+    "logLevel": "info",
+    "clusterWorkers": false,
+    "amqp": {
+//        "host": "10.10.10.183",
+        "host": "10.10.10.180",
+//        "host": "192.168.0.139",
+        "port": "5673",
+        "login": "letsallfancyclap",
+        "password": "callmeishmael",
+        "vhost": "/",
+        "admin": {
+            "login": "admin",
+            "port": 15672,
+            "password": "welcome00"
+        }
+    },
+    "mongo": {
+        "server": "192.168.0.143"
+    },
+    "sqlServer": {
+        "server": "192.168.0.116",
+        "userName": "zaio_services",
+        "password": "conf1denti@l",
+        "options": {
+            "database": "GeoPic"
+        }
+    },
+    "ftp": {
+        "host": "63.146.49.227",
+        "userName": "zaio",
+        "password": "winpace"
+    },
+    "workers": {
+        "county-file-watcher": {
+            "enabled": true,
+            "options": {
+                "pathToWatch": "/Users/blackdynamo/sourcecode/playground/filewatcher/files/corelogic",
+                "fileType": "zip",
+                "processingTypes": {
+                    "2580": {
+                        "ensureCapacity": {
+                            "AddressValidationRequest": 500000,
+                            "AddressValidationReply": 500000,
+                            "CountyData": 500000
+                        },
+                        "amqp": {
+                            "publishTo": "AddressValidationRequest",
+                            "options": {
+                                "replyTo": "AddressValidationReply"
+                            }
+                        }
+                    },
+                    "1080": {
+                        "ensureCapacity": {
+                            "DeedAddressRequest": 500000,
+                            "DeedAddressReply": 500000
+                        },
+                        "amqp": {
+                            "publishTo": "DeedAddressRequest",
+                            "options": {
+                                "replyTo": "DeedAddressReply"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
