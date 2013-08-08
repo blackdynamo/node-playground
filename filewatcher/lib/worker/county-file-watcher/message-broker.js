@@ -1,8 +1,7 @@
 var _ = require("underscore"),
     foo = require('jquery-deferred'),
     config = require('config'),
-    amqp = require('amqp'),
-    amqpStream = require('amqp-stream');
+    amqp = require('amqp');
 
 var defaultQueueOptions = {durable: true, autoDelete: false};
 var defaultPublishOptions = {"contentType": "application/json", "deliveryMode": 2};

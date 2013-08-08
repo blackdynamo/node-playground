@@ -23,6 +23,7 @@ module.exports = function (context, next) {
         }
     };
 
+
     context.message.Entry = parse(mappings[context.type], context.message.EntrySource);
     next();
 };

@@ -1,5 +1,4 @@
 module.exports = {
-    createMessage: require("./create-message"),
     parseLine: require("./parse-line"),
     cleanEntry: require("./clean-entry"),
     validateEntry: require("./validate-entry"),

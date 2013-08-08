@@ -1,10 +1,7 @@
 var fs = require("fs"),
-    amqp = require("amqp"),
     _ = require("underscore"),
     unzip = require("unzip"),
-    byline = require("byline"),
-    winston = require("winston"),
-    ProcessLinePipeline = require("./process-line-pipeline");
+    steps = require("./steps");
 
 function Processor(config, context) {
     this._config = config;
@@ -18,39 +15,26 @@ Processor.prototype.process = function () {
 
     readStream
         .pipe(unzip.Parse())
-        .on("entry", _.bind(processFile, me))
-        .on("close", function () {
-            console.log("DONE!");
+        .on("entry", function (entry) {
+            if (entry.type === "File") {
+
+                var context = _.extend({}, me._context, {
+                    lineCount: 0,
+                    config: me._config
+                });
+
+                entry
+                    .pipe(steps.splitLine())
+                    .pipe(steps.processLine(context))
+                    .pipe(steps.publishLine())
+                    .on("finish", function () {
+                        console.log("finish");
+                    });
+            }
+            else
+                entry.autodrain();
+
         });
 };
-
-function processFile(entry) {
-    var me = this;
-
-    _.extend(me._context, {
-        lineCount: 0,
-        config: me._config
-    });
-
-    if (entry.type === "File") {
-        var lineStream = new byline.LineStream();
-        lineStream.on("data", _.bind(function (buffer) {
-            me._context.line = buffer.toString();
-            processLine.call(this, me._context);
-        }, this));
-
-        entry.pipe(lineStream);
-    }
-    else
-        entry.autodrain();
-}
-
-function processLine(context) {
-    context.lineCount++;
-
-    new ProcessLinePipeline(context).execute(function (err, context) {
-        if (err) winston.error(err);
-    });
-}
 
 module.exports = Processor;
