@@ -1,11 +1,11 @@
 {
-    "logLevel": "info",
+    "logLevel": "error",
     "clusterWorkers": false,
     "amqp": {
 //        "host": "10.10.10.183",
 //        "host": "10.10.10.180",
-//        "host": "192.168.0.139",
-        "host": "ec2-23-20-137-127.compute-1.amazonaws.com",
+        "host": "192.168.0.139",
+//        "host": "ec2-23-20-137-127.compute-1.amazonaws.com",
 //        "port": "5673",
         "port": "5672",
         "login": "letsallfancyclap",
@@ -37,7 +37,7 @@
         "county-file-watcher": {
             "enabled": true,
             "options": {
-                "pathToWatch": "/Users/blackdynamo/sourcecode/playground/filewatcher/files/corelogic",
+                "pathToWatch": "/Users/blackdynamo/sourcecode/playground/node-playground/filewatcher/files/corelogic",
                 "fileType": "zip",
                 "processingTypes": {
                     "2580": {

@@ -1,33 +1,26 @@
 var util = require("util"),
-    Writable = require("stream").Writable;
+    Writable = require("stream").Writable,
+    messageBroker = require('../../message-broker');
 
-function PublishLine() {
+function PublishLine(config) {
     Writable.call(this, {objectMode: true});
+
+    this._config = config;
 }
 
 util.inherits(PublishLine, Writable);
 
 PublishLine.prototype._write = function (chunk, encoding, done) {
-    console.log(chunk.message);
+    var borker = messageBroker.create();
+//
+//    //    borker.publish(context.config.amqp.publish.to, context.message, context.config.amqp.publish.options);
+    borker.publish("DonnoQ", chunk.message, this._config.amqp.publish.options, function(){
+        console.log("here");
+    });
 
     done();
 };
 
-module.exports = function () {
-    return new PublishLine();
+module.exports = function (config) {
+    return new PublishLine(config);
 };
-
-
-/*
-
- var messageBroker = require('../../../message-broker');
-
- module.exports = function (context, next) {
- var borker = messageBroker.create();
-
- //    borker.publish(context.config.amqp.publish.to, context.message, context.config.amqp.publish.options);
- borker.publish("DonnoQ", context.message, context.config.amqp.publish.options);
-
- next();
- };
-    */

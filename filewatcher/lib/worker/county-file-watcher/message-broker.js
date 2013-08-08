@@ -28,11 +28,15 @@ function createConnection() {
 MessageBroker.prototype.publish = function (queueName, message, options, cb) {
     var me = this;
 
-    me._deferred.done(function () {
-        me._connection.queue(queueName, defaultQueueOptions, function () {
-            me._connection.publish(queueName, message, _.extend({}, defaultPublishOptions, options), cb);
+    me._deferred
+        .done(function () {
+            me._connection.queue(queueName, defaultQueueOptions, function () {
+                me._connection.publish(queueName, {foo:"bar"}, _.extend({}, defaultPublishOptions, options));
+            });
+        })
+        .fail(function (err) {
+            throw err;
         });
-    });
 };
 
 var messageBroker;

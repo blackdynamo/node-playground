@@ -27,13 +27,11 @@ ParseLine.prototype._transform = function (chunk, encoding, done) {
         }
     }, me._context);
 
-    new ProcessLinePipeline(pipelineContext).execute(function(err){
-        if(err){
-            winston.error(err);
-        }
-        else{
+    new ProcessLinePipeline(pipelineContext).execute(function (err) {
+        if (err)
+            winston.info(err);
+        else
             me.push(pipelineContext);
-        }
 
 
         done();

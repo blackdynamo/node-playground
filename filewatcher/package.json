@@ -50,7 +50,8 @@
         "walkdir": "0.0.x",
         "byline": "*",
         "simple-pipeline":"*",
-        "q":"*"
+        "q":"*",
+        "throttle":"*"
     },
     "devDependencies": {
         "mocha": "1.8.x",

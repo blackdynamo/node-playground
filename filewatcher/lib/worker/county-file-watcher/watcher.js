@@ -16,6 +16,7 @@ Watcher.prototype.watch = function () {
 
     me._watcher
         .on('add', function (f, stats) {
+            console.log("new file");
             me.emit("file::new", f, stats);
         });
 };
