@@ -11,14 +11,10 @@ function PublishLine(config) {
 util.inherits(PublishLine, Writable);
 
 PublishLine.prototype._write = function (chunk, encoding, done) {
-    var borker = messageBroker.create();
-//
-//    //    borker.publish(context.config.amqp.publish.to, context.message, context.config.amqp.publish.options);
-    borker.publish("DonnoQ", chunk.message, this._config.amqp.publish.options, function(){
-        console.log("here");
-    });
-
-    done();
+    //this._config.amqp.publish.to
+    messageBroker
+        .create()
+        .publish("DonnoQ", chunk.message, this._config.amqp.publish.options, done);
 };
 
 module.exports = function (config) {

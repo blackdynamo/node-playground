@@ -1,5 +1,6 @@
 var events = require("events"),
     _ = require("underscore"),
+    winston = require("winston"),
     chokidar = require("chokidar");
 
 function Watcher(path) {
@@ -16,7 +17,7 @@ Watcher.prototype.watch = function () {
 
     me._watcher
         .on('add', function (f, stats) {
-            console.log("new file");
+            winston.info("New File Dropped");
             me.emit("file::new", f, stats);
         });
 };

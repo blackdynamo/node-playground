@@ -1,6 +1,8 @@
-var byline = require("byline");
+var byline = require("byline"),
+    winston = require("winston");
 
 module.exports = function () {
-    console.log("splitting the line!");
+    winston.info("Splitting Lines");
+
     return new byline.LineStream();
 };

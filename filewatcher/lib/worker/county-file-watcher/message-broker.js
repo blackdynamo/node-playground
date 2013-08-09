@@ -25,17 +25,34 @@ function createConnection() {
     });
 }
 
+var queues = {};
+
+MessageBroker.prototype._getQ = function (queueName) {
+    var me = this;
+
+    if (!queues[queueName]) {
+        queues[queueName] = foo.Deferred();
+        me._deferred
+            .done(function () {
+                me._connection.queue(queueName, defaultQueueOptions, function () {
+                    queues[queueName].resolve();
+                });
+            })
+            .fail(function (err) {
+                throw err;
+            });
+    }
+
+    return queues[queueName];
+};
+
 MessageBroker.prototype.publish = function (queueName, message, options, cb) {
     var me = this;
 
-    me._deferred
+    me._getQ(queueName)
         .done(function () {
-            me._connection.queue(queueName, defaultQueueOptions, function () {
-                me._connection.publish(queueName, {foo:"bar"}, _.extend({}, defaultPublishOptions, options));
-            });
-        })
-        .fail(function (err) {
-            throw err;
+            me._connection.publish(queueName, message, _.extend({}, defaultPublishOptions, options));
+            cb();
         });
 };
 

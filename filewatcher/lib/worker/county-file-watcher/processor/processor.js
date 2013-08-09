@@ -1,6 +1,6 @@
 var fs = require("fs"),
     _ = require("underscore"),
-    Throttle = require("throttle"),
+    winston = require("winston"),
     unzip = require("unzip"),
     steps = require("./steps");
 
@@ -23,21 +23,15 @@ Processor.prototype.process = function () {
                     lineCount: 0
                 });
 
-                var throttle = new Throttle(300000);
-                throttle.on("error", function(err){
-                    console.log(err);
-                });
-
                 entry
-                    .pipe(throttle)
                     .pipe(steps.splitLine())
                     .pipe(steps.processLine(context))
                     .pipe(steps.publishLine(me._config))
                     .on("error", function(err){
-                        console.log(err);
+                        winston.error(err);
                     })
                     .on("finish", function () {
-                        console.log("finish");
+                        winston.info("Done");
                     });
             }
             else
